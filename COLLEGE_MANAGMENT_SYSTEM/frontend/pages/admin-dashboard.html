@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — EduCore CMS</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="sidebar-brand">EduCore <span>CMS</span></div>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebarAvatar">A</div>
+      <div class="sidebar-user-info">
+        <div class="name" id="sidebarName">Administrator</div>
+        <div class="role-badge">Admin</div>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <span class="nav-section-label">Overview</span>
+      <a class="nav-item active" data-page="dashboard">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <span class="nav-section-label">Management</span>
+      <a class="nav-item" data-page="students">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Students
+      </a>
+      <a class="nav-item" data-page="faculty">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Faculty
+      </a>
+      <a class="nav-item" data-page="courses">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        Courses
+      </a>
+      <a class="nav-item" data-page="enrollments">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+        </svg>
+        Enrollments
+      </a>
+      <a class="nav-item" data-page="schedules">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Schedules
+      </a>
+
+      <span class="nav-section-label">Reports</span>
+      <a class="nav-item" data-page="attendance-report">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Attendance Report
+      </a>
+      <a class="nav-item" data-page="grades-report">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        Grades Report
+      </a>
+      <a class="nav-item" data-page="registrations">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        Registrations
+        <span class="nav-badge" id="pendingBadge"></span>
+      </a>
+
+      <span class="nav-section-label">Communication</span>
+      <a class="nav-item" data-page="announcements">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        Announcements
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <a class="nav-item" data-page="settings">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </a>
+      <a class="nav-item" id="logoutBtn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <!-- ════════ MAIN CONTENT ════════ -->
+  <div class="main-content">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="topbar-breadcrumb">
+        <div class="page-title" id="pageTitle">Dashboard</div>
+        <div class="breadcrumb">
+          <span>Admin</span>
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          <span id="breadcrumbPage">Overview</span>
+        </div>
+      </div>
+      <div class="topbar-search">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" placeholder="Search anything…" id="globalSearch">
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-icon-btn" id="notifBtn" title="Notifications">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="notif-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dynamic page content -->
+    <div class="page-content" id="pageContent">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MODALS ════════ -->
+
+<!-- Add/Edit Student Modal -->
+<div class="modal-overlay" id="studentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="studentModalTitle">Add Student</h3>
+      <button class="modal-close" data-close="studentModal">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="studentForm">
+        <input type="hidden" id="studentId">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" id="sFirstName" placeholder="First name" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" id="sLastName" placeholder="Last name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Roll Number</label>
+            <input type="text" class="form-control" id="sRollNo" placeholder="e.g. CS2024001" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" id="sEmail" placeholder="student@college.edu" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Department</label>
+            <select class="form-control" id="sDept">
+              <option value="">Select Department</option>
+              <option value="1">Computer Science</option>
+              <option value="2">Electronics Engineering</option>
+              <option value="3">Mechanical Engineering</option>
+              <option value="4">Business Administration</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Semester</label>
+            <select class="form-control" id="sSemester">
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+              <option value="7">Semester 7</option>
+              <option value="8">Semester 8</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control" id="sDob">
+          </div>
+          <div class="form-group">
+            <label>Gender</label>
+            <select class="form-control" id="sGender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" class="form-control" id="sPhone" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="form-group" id="passwordField">
+          <label>Password</label>
+          <input type="password" class="form-control" id="sPassword" placeholder="Min 8 characters">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="studentModal">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="saveStudentBtn">Save Student</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Faculty Modal -->
+<div class="modal-overlay" id="facultyModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="facultyModalTitle">Add Faculty</h3>
+      <button class="modal-close" data-close="facultyModal">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="facultyForm">
+        <input type="hidden" id="facultyId">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" id="fFirstName" placeholder="First name" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" id="fLastName" placeholder="Last name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Employee ID</label>
+            <input type="text" class="form-control" id="fEmpId" placeholder="e.g. FAC001" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" id="fEmail" placeholder="faculty@college.edu" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Designation</label>
+            <input type="text" class="form-control" id="fDesignation" placeholder="e.g. Associate Professor">
+          </div>
+          <div class="form-group">
+            <label>Department</label>
+            <select class="form-control" id="fDept">
+              <option value="">Select Department</option>
+              <option value="1">Computer Science</option>
+              <option value="2">Electronics Engineering</option>
+              <option value="3">Mechanical Engineering</option>
+              <option value="4">Business Administration</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" class="form-control" id="fPhone">
+          </div>
+          <div class="form-group">
+            <label>Joining Date</label>
+            <input type="date" class="form-control" id="fJoinDate">
+          </div>
+        </div>
+        <div class="form-group" id="fPasswordField">
+          <label>Password</label>
+          <input type="password" class="form-control" id="fPassword" placeholder="Min 8 characters">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="facultyModal">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="saveFacultyBtn">Save Faculty</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Course Modal -->
+<div class="modal-overlay" id="courseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="courseModalTitle">Add Course</h3>
+      <button class="modal-close" data-close="courseModal">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="courseForm">
+        <input type="hidden" id="courseId">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Course Code</label>
+            <input type="text" class="form-control" id="cCode" placeholder="e.g. CS401" required>
+          </div>
+          <div class="form-group">
+            <label>Credits</label>
+            <input type="number" class="form-control" id="cCredits" value="3" min="1" max="6">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Course Title</label>
+          <input type="text" class="form-control" id="cTitle" placeholder="Full course name" required>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" id="cDesc" rows="3" placeholder="Brief course description"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Department</label>
+            <select class="form-control" id="cDept">
+              <option value="">Select Department</option>
+              <option value="1">Computer Science</option>
+              <option value="2">Electronics Engineering</option>
+              <option value="3">Mechanical Engineering</option>
+              <option value="4">Business Administration</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Max Students</label>
+            <input type="number" class="form-control" id="cMaxStudents" value="60" min="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Assign Faculty</label>
+          <select class="form-control" id="cFaculty">
+            <option value="">Select Faculty</option>
+            <option value="1">Dr. Rajesh Sharma</option>
+            <option value="2">Prof. Priya Mehta</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="courseModal">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="saveCourseBtn">Save Course</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/admin.js"></script>
+
+<!-- ═══════════════════════════════════════════════
+     AI ASSISTANT — hardcoded directly in HTML
+     ═══════════════════════════════════════════════ -->
+<style>
+#ai-fab{position:fixed;bottom:28px;right:28px;z-index:99999;width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#0B1D3A,#1a3560);border:none;cursor:pointer;box-shadow:0 6px 28px rgba(11,29,58,.5);display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:transform .2s,box-shadow .2s;}
+#ai-fab:hover{transform:scale(1.1);box-shadow:0 10px 36px rgba(11,29,58,.65);}
+#ai-fab .ai-pulse{position:absolute;top:2px;right:2px;width:14px;height:14px;background:#2D9D5C;border-radius:50%;border:2px solid #fff;animation:aipulse 2s infinite;}
+@keyframes aipulse{0%,100%{box-shadow:0 0 0 0 rgba(45,157,92,.5);}50%{box-shadow:0 0 0 6px rgba(45,157,92,0);}}
+#ai-win{position:fixed;bottom:106px;right:28px;z-index:99998;width:385px;max-height:570px;background:#fff;border-radius:18px;box-shadow:0 16px 56px rgba(11,29,58,.25);display:none;flex-direction:column;overflow:hidden;font-family:'DM Sans',sans-serif;}
+#ai-win.ai-open{display:flex;}
+#ai-head{background:linear-gradient(135deg,#0B1D3A,#1a3560);padding:15px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+#ai-head .ai-av{width:40px;height:40px;border-radius:50%;background:rgba(245,166,35,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+#ai-head .ai-inf{flex:1;}
+#ai-head .ai-inf b{color:#fff;font-size:.95rem;display:block;}
+#ai-head .ai-inf span{color:rgba(255,255,255,.6);font-size:.73rem;display:flex;align-items:center;gap:4px;}
+#ai-head .ai-inf span::before{content:'';width:7px;height:7px;border-radius:50%;background:#2D9D5C;display:inline-block;}
+#ai-head button{background:rgba(255,255,255,.15);border:none;border-radius:8px;width:30px;height:30px;color:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+#ai-head button:hover{background:rgba(255,255,255,.25);}
+#ai-keybanner{background:#FFF8EC;border-bottom:2px solid #F5A623;padding:10px 14px;font-size:.8rem;color:#7A4F00;flex-shrink:0;}
+#ai-keybanner b{display:block;margin-bottom:3px;}
+#ai-keybanner a{color:#D4891C;}
+#ai-keyrow{display:flex;gap:6px;margin-top:7px;}
+#ai-keyrow input{flex:1;padding:7px 10px;border:1.5px solid #F5A623;border-radius:7px;font-size:.8rem;outline:none;font-family:monospace;}
+#ai-keyrow button{padding:7px 13px;background:#F5A623;border:none;border-radius:7px;font-size:.8rem;font-weight:700;color:#0B1D3A;cursor:pointer;}
+#ai-chips{padding:9px 13px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #EEF0F7;background:#FAFBFF;flex-shrink:0;}
+.aic{padding:5px 11px;border-radius:20px;border:1.5px solid #DDE3F0;background:#fff;font-size:.74rem;color:#1C2B4A;cursor:pointer;transition:.15s;white-space:nowrap;}
+.aic:hover{background:#0B1D3A;color:#fff;border-color:#0B1D3A;}
+#ai-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:120px;}
+#ai-msgs::-webkit-scrollbar{width:4px;}
+#ai-msgs::-webkit-scrollbar-thumb{background:#DDE3F0;border-radius:4px;}
+.aim{display:flex;gap:8px;max-width:93%;}
+.aim.u{align-self:flex-end;flex-direction:row-reverse;}
+.aim .bbl{padding:10px 14px;border-radius:16px;font-size:.87rem;line-height:1.55;color:#1C2B4A;}
+.aim.b .bbl{background:#F0F3FA;border-bottom-left-radius:4px;}
+.aim.u .bbl{background:linear-gradient(135deg,#0B1D3A,#1a3560);color:#fff;border-bottom-right-radius:4px;}
+.aim .av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.85rem;margin-top:2px;background:#EBF0FF;}
+.aim.u .av{background:rgba(245,166,35,.2);}
+.tdots{display:flex;gap:4px;padding:5px 2px;}
+.tdots span{width:7px;height:7px;border-radius:50%;background:#9AA5C4;animation:td 1.2s infinite;}
+.tdots span:nth-child(2){animation-delay:.2s;}.tdots span:nth-child(3){animation-delay:.4s;}
+@keyframes td{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+#ai-irow{padding:12px 13px;border-top:1px solid #EEF0F7;display:flex;gap:8px;background:#fff;flex-shrink:0;}
+#ai-inp{flex:1;border:1.5px solid #DDE3F0;border-radius:22px;padding:10px 15px;font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;resize:none;max-height:90px;color:#1C2B4A;background:#FAFBFF;line-height:1.4;transition:border-color .15s;}
+#ai-inp:focus{border-color:#0B1D3A;}
+#ai-sbtn{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#F5A623,#D4891C);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s;align-self:flex-end;}
+#ai-sbtn:hover{transform:scale(1.1);}
+#ai-sbtn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+@media(max-width:440px){#ai-win{width:calc(100vw - 18px);right:9px;bottom:96px;}#ai-fab{right:14px;bottom:18px;}}
+</style>
+
+<!-- Floating Button -->
+<button id="ai-fab" onclick="aiToggle()" title="EduCore AI Assistant">
+  🤖
+  <div class="ai-pulse"></div>
+</button>
+
+<!-- Chat Window -->
+<div id="ai-win">
+  <div id="ai-head">
+    <div class="ai-av">🤖</div>
+    <div class="ai-inf">
+      <b>EduCore AI Assistant</b>
+      <span>Powered by Claude</span>
+    </div>
+    <button onclick="aiToggle()">✕</button>
+  </div>
+
+  <!-- API Key Banner -->
+  <div id="ai-keybanner">
+    <b>🔑 Anthropic API Key Required</b>
+    Get your free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
+    <div id="ai-keyrow">
+      <input id="ai-keyinp" type="password" placeholder="Paste your key: sk-ant-..." />
+      <button onclick="aiSaveKey()">Save</button>
+    </div>
+  </div>
+
+  <!-- Quick Chips -->
+  <div id="ai-chips">
+    <button class="aic" onclick="aiChip('What is my attendance status?')">📋 Attendance</button>
+    <button class="aic" onclick="aiChip('Explain my grades and GPA')">📊 Grades & GPA</button>
+    <button class="aic" onclick="aiChip('Give me study tips for exams')">📚 Study Tips</button>
+    <button class="aic" onclick="aiChip('How to calculate CGPA?')">🧮 CGPA Calc</button>
+    <button class="aic" onclick="aiClearKey()" style="color:#c00;border-color:#fcc;">🔑 Change Key</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="ai-msgs">
+    <div class="aim b">
+      <div class="av">🤖</div>
+      <div class="bbl">Hi! I'm <strong>EduCore AI</strong> 👋<br><br>I can help with grades, attendance, schedules, GPA calculations, study tips and more!<br><br><em style="color:#9AA5C4;">Enter your API key above to get started.</em></div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div id="ai-irow">
+    <textarea id="ai-inp" rows="1" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();aiSend();}"></textarea>
+    <button id="ai-sbtn" onclick="aiSend()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY_LS = 'cms_anthropic_key';
+  var history = [];
+  var busy = false;
+
+  function getKey(){ return localStorage.getItem(KEY_LS)||''; }
+
+  function checkBanner(){
+    document.getElementById('ai-keybanner').style.display = getKey() ? 'none' : 'block';
+  }
+
+  window.aiToggle = function(){
+    var w = document.getElementById('ai-win');
+    w.classList.toggle('ai-open');
+    if(w.classList.contains('ai-open')){ checkBanner(); setTimeout(function(){ document.getElementById('ai-inp').focus(); },200); }
+  };
+
+  window.aiSaveKey = function(){
+    var v = document.getElementById('ai-keyinp').value.trim();
+    if(!v){ alert('Please paste your API key first.'); return; }
+    if(!v.startsWith('sk-ant-')){ alert('Key must start with sk-ant-\nGet yours at console.anthropic.com'); return; }
+    localStorage.setItem(KEY_LS, v);
+    document.getElementById('ai-keyinp').value = '';
+    checkBanner();
+    addMsg('b','✅ API key saved! Ask me anything.');
+  };
+
+  window.aiClearKey = function(){
+    localStorage.removeItem(KEY_LS);
+    checkBanner();
+  };
+
+  window.aiChip = function(txt){
+    document.getElementById('ai-inp').value = txt;
+    aiSend();
+  };
+
+  function sysPrompt(){
+    var u = {};
+    try{ u = JSON.parse(localStorage.getItem('cms_user')||'{}'); }catch(e){}
+    return 'You are EduCore AI, a friendly academic assistant inside the EduCore College Management System. '+
+      'The user is '+(u.full_name||u.name||'a college user')+' (role: '+(u.role||'student')+'). '+
+      'Help with: grades, attendance, GPA, schedules, study tips, college processes. '+
+      'Be concise, warm, use bullet points for lists. Stay focused on academic topics.';
+  }
+
+  function addMsg(role, text){
+    var msgs = document.getElementById('ai-msgs');
+    var d = document.createElement('div');
+    d.className = 'aim '+(role==='b'?'b':'u');
+    d.innerHTML = '<div class="av">'+(role==='b'?'🤖':'🎓')+'</div><div class="bbl">'+fmt(text)+'</div>';
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showDots(){
+    var msgs = document.getElementById('ai-msgs');
+    var d = document.createElement('div');
+    d.className='aim b'; d.id='ai-typing';
+    d.innerHTML='<div class="av">🤖</div><div class="bbl"><div class="tdots"><span></span><span></span><span></span></div></div>';
+    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+  }
+  function hideDots(){ var e=document.getElementById('ai-typing'); if(e) e.remove(); }
+
+  function fmt(t){
+    return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g,'<em>$1</em>')
+      .replace(/`(.+?)`/g,'<code style="background:#F0F3FA;padding:1px 5px;border-radius:4px;">$1</code>')
+      .replace(/^[-•] (.+)$/gm,'• $1')
+      .replace(/\n/g,'<br>');
+  }
+
+  window.aiSend = async function(){
+    var inp  = document.getElementById('ai-inp');
+    var sbtn = document.getElementById('ai-sbtn');
+    var txt  = inp.value.trim();
+    if(!txt || busy) return;
+    var key = getKey();
+    if(!key){ checkBanner(); addMsg('b','⚠️ Please save your Anthropic API key first (see the yellow banner above).'); return; }
+    inp.value=''; inp.style.height='auto';
+    busy=true; sbtn.disabled=true;
+    addMsg('u', txt);
+    history.push({role:'user', content:txt});
+    showDots();
+    try{
+      var res = await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key': key,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body: JSON.stringify({
+          model:'claude-sonnet-4-20250514',
+          max_tokens:1024,
+          system: sysPrompt(),
+          messages: history
+        })
+      });
+      var data = await res.json();
+      hideDots();
+      if(data && data.content && data.content[0] && data.content[0].text){
+        var reply = data.content[0].text;
+        history.push({role:'assistant', content:reply});
+        addMsg('b', reply);
+      } else {
+        var err = (data.error && data.error.message) || 'Unknown error from AI';
+        addMsg('b','⚠️ '+err);
+      }
+    } catch(e){
+      hideDots();
+      addMsg('b','⚠️ Request failed: '+e.message+'\n\nMake sure your API key is correct and you have an active Anthropic account.');
+    }
+    busy=false; sbtn.disabled=false; inp.focus();
+  };
+
+  // auto-grow textarea
+  document.getElementById('ai-inp').addEventListener('input',function(){
+    this.style.height='auto';
+    this.style.height=Math.min(this.scrollHeight,90)+'px';
+  });
+
+  checkBanner();
+})();
+</script>
+
+</body>
+</html>

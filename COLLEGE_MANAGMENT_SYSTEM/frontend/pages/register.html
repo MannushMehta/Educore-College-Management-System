@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — EduCore CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --navy:#0B1D3A;--amber:#F5A623;--amber-dark:#D4891C;
+      --bg:#F4F6FB;--card:#fff;--text:#1C2B4A;--muted:#6B7A99;
+      --border:#DDE3F0;--red:#E53E3E;--green:#2D9D5C;
+      --radius:12px;--shadow:0 4px 24px rgba(11,29,58,.10);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;background:linear-gradient(135deg,#0B1D3A 0%,#1a3560 100%);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'DM Sans',sans-serif;padding:24px}
+    .reg-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+      width:100%;max-width:520px;overflow:hidden;}
+    .reg-header{background:var(--navy);padding:32px;text-align:center;}
+    .reg-header .logo{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;color:#fff;}
+    .reg-header .logo span{color:var(--amber)}
+    .reg-header p{color:rgba(255,255,255,.65);margin-top:6px;font-size:.9rem}
+    .reg-body{padding:32px}
+    .role-tabs{display:flex;gap:8px;margin-bottom:24px}
+    .role-tab{flex:1;padding:10px;border:2px solid var(--border);border-radius:8px;
+      background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;
+      color:var(--muted);transition:.2s;}
+    .role-tab.active{border-color:var(--navy);background:var(--navy);color:#fff}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:480px){.form-row{grid-template-columns:1fr}}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--text);margin-bottom:6px;}
+    .form-group label span.req{color:var(--red)}
+    .form-group input,.form-group select{
+      width:100%;padding:11px 14px;border:1.5px solid var(--border);
+      border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.95rem;
+      color:var(--text);background:#fff;transition:.2s;}
+    .form-group input:focus,.form-group select:focus{
+      outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(11,29,58,.08);}
+    .form-group input.error{border-color:var(--red)}
+    .pwd-wrap{position:relative}
+    .pwd-wrap input{padding-right:44px}
+    .pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);
+      background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.1rem;}
+    .strength-bar{height:4px;border-radius:2px;margin-top:6px;background:var(--border);overflow:hidden}
+    .strength-bar-fill{height:100%;transition:width .3s,background .3s;width:0%}
+    .strength-label{font-size:.75rem;color:var(--muted);margin-top:4px}
+    .info-box{background:#EBF4FF;border:1px solid #BFDBFE;border-radius:8px;
+      padding:12px 14px;margin-bottom:20px;font-size:.83rem;color:#1E40AF;
+      display:flex;gap:10px;align-items:flex-start;}
+    .btn-register{width:100%;padding:14px;background:var(--amber);border:none;
+      border-radius:8px;font-family:'Sora',sans-serif;font-size:1rem;
+      font-weight:600;color:var(--navy);cursor:pointer;transition:.2s;}
+    .btn-register:hover{background:var(--amber-dark)}
+    .btn-register:disabled{opacity:.6;cursor:not-allowed}
+    .login-link{text-align:center;margin-top:20px;font-size:.88rem;color:var(--muted);}
+    .login-link a{color:var(--navy);font-weight:600;text-decoration:none}
+    .login-link a:hover{text-decoration:underline}
+    .toast{position:fixed;top:24px;right:24px;padding:14px 20px;border-radius:10px;
+      font-size:.9rem;font-weight:500;color:#fff;z-index:9999;
+      animation:slideIn .3s ease;box-shadow:0 4px 16px rgba(0,0,0,.2);}
+    .toast.success{background:var(--green)}
+    .toast.error{background:var(--red)}
+    @keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    .field-error{font-size:.78rem;color:var(--red);margin-top:4px}
+  </style>
+</head>
+<body>
+<div class="reg-card">
+  <div class="reg-header">
+    <div class="logo">Edu<span>Core</span></div>
+    <p>Create your account</p>
+  </div>
+  <div class="reg-body">
+    <div class="role-tabs">
+      <button class="role-tab active" data-role="student" onclick="selectRole('student',this)">🎓 Student</button>
+      <button class="role-tab" data-role="faculty" onclick="selectRole('faculty',this)">👨‍🏫 Faculty</button>
+    </div>
+    <div class="info-box">
+      <span>ℹ️</span>
+      <span id="infoText">Student registrations are reviewed by the Admin. You can log in once approved.</span>
+    </div>
+    <form id="regForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" placeholder="Jane Smith" />
+          <div class="field-error" id="errName"></div>
+        </div>
+        <div class="form-group">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="jane@college.edu" />
+          <div class="field-error" id="errEmail"></div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Username <span class="req">*</span></label>
+          <input type="text" id="username" placeholder="jane_smith" />
+          <div class="field-error" id="errUsername"></div>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Department <span class="req">*</span></label>
+        <select id="department">
+          <option value="">— Select Department —</option>
+          <option value="1">Computer Science & Engineering</option>
+          <option value="2">Electronics & Communication</option>
+          <option value="3">Mechanical Engineering</option>
+          <option value="4">Civil Engineering</option>
+        </select>
+        <div class="field-error" id="errDept"></div>
+      </div>
+      <div class="form-group">
+        <label>Password <span class="req">*</span></label>
+        <div class="pwd-wrap">
+          <input type="password" id="password" placeholder="Min 8 characters" />
+          <button type="button" class="pwd-toggle" onclick="togglePwd('password',this)">👁</button>
+        </div>
+        <div class="strength-bar"><div class="strength-bar-fill" id="strengthFill"></div></div>
+        <div class="strength-label" id="strengthLabel"></div>
+        <div class="field-error" id="errPwd"></div>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password <span class="req">*</span></label>
+        <div class="pwd-wrap">
+          <input type="password" id="confirmPwd" placeholder="Repeat password" />
+          <button type="button" class="pwd-toggle" onclick="togglePwd('confirmPwd',this)">👁</button>
+        </div>
+        <div class="field-error" id="errConfirm"></div>
+      </div>
+      <button type="submit" class="btn-register" id="btnReg">Create Account</button>
+    </form>
+    <div class="login-link">Already have an account? <a href="login.html">Sign in</a></div>
+  </div>
+</div>
+
+<script>
+  const DEPTS = {1:'Computer Science & Engineering',2:'Electronics & Communication',3:'Mechanical Engineering',4:'Civil Engineering'};
+
+  let currentRole = 'student';
+  function selectRole(role, btn) {
+    currentRole = role;
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('infoText').textContent = role === 'student'
+      ? 'Student registrations are reviewed by the Admin. You can log in once approved.'
+      : 'Faculty registrations are reviewed by the Admin before login is enabled.';
+  }
+
+  function togglePwd(id, btn) {
+    const inp = document.getElementById(id);
+    inp.type  = inp.type === 'password' ? 'text' : 'password';
+    btn.textContent = inp.type === 'password' ? '👁' : '🔒';
+  }
+
+  document.getElementById('password').addEventListener('input', function () {
+    const val = this.value;
+    let score = 0;
+    if (val.length >= 8) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+    const map = [
+      {pct:'0%',  color:'transparent',text:''},
+      {pct:'25%', color:'#E53E3E',    text:'Weak'},
+      {pct:'50%', color:'#F5A623',    text:'Fair'},
+      {pct:'75%', color:'#4299E1',    text:'Good'},
+      {pct:'100%',color:'#2D9D5C',    text:'Strong'},
+    ];
+    const fill = document.getElementById('strengthFill');
+    const lbl  = document.getElementById('strengthLabel');
+    fill.style.width      = map[score].pct;
+    fill.style.background = map[score].color;
+    lbl.textContent       = map[score].text;
+    lbl.style.color       = map[score].color;
+  });
+
+  function clearErrors() {
+    ['errName','errEmail','errUsername','errDept','errPwd','errConfirm'].forEach(id =>
+      document.getElementById(id).textContent = '');
+    document.querySelectorAll('.form-group input, .form-group select').forEach(el => el.classList.remove('error'));
+  }
+  function setError(fid, eid, msg) {
+    document.getElementById(fid).classList.add('error');
+    document.getElementById(eid).textContent = msg;
+    return false;
+  }
+  function validate() {
+    clearErrors(); let ok = true;
+    const name  = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const uname = document.getElementById('username').value.trim();
+    const dept  = document.getElementById('department').value;
+    const pwd   = document.getElementById('password').value;
+    const cpwd  = document.getElementById('confirmPwd').value;
+    if (!name)  ok = setError('fullName','errName','Full name is required') && ok;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      ok = setError('email','errEmail','Valid email is required') && ok;
+    if (!uname || uname.length < 3)
+      ok = setError('username','errUsername','Username must be at least 3 characters') && ok;
+    if (/\s/.test(uname))
+      ok = setError('username','errUsername','Username cannot contain spaces') && ok;
+    if (!dept) ok = setError('department','errDept','Please select a department') && ok;
+    if (pwd.length < 8) ok = setError('password','errPwd','Password must be at least 8 characters') && ok;
+    if (pwd !== cpwd)   ok = setError('confirmPwd','errConfirm','Passwords do not match') && ok;
+    return ok;
+  }
+
+  function showToast(msg, type = 'success') {
+    const t = document.createElement('div');
+    t.className = `toast ${type}`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 4000);
+  }
+
+  document.getElementById('regForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const btn = document.getElementById('btnReg');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const deptId   = document.getElementById('department').value;
+    const deptName = DEPTS[deptId] || '';
+
+    const newReg = {
+      id:         Date.now(),
+      name:       document.getElementById('fullName').value.trim(),
+      email:      document.getElementById('email').value.trim(),
+      username:   document.getElementById('username').value.trim(),
+      phone:      document.getElementById('phone').value.trim(),
+      department: deptName,
+      department_id: deptId,
+      role:       currentRole,
+      date:       new Date().toISOString().split('T')[0],
+      status:     'pending',
+    };
+
+    // ── Save to localStorage so Admin dashboard can read it ──
+    const existing = JSON.parse(localStorage.getItem('cms_registrations') || '[]');
+
+    // Check for duplicate username
+    const duplicate = existing.find(r => r.username === newReg.username || r.email === newReg.email);
+    if (duplicate) {
+      showToast('Username or email already registered. Please use different credentials.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Create Account';
+      return;
+    }
+
+    existing.push(newReg);
+    localStorage.setItem('cms_registrations', JSON.stringify(existing));
+
+    showToast('Registration submitted! Awaiting admin approval. ✅');
+    setTimeout(() => window.location.href = 'login.html', 2000);
+  });
+</script>
+</body>
+</html>
